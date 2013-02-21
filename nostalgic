@@ -169,6 +169,11 @@ function SymlinkRepo()
     for file in *; do
         SLINK="$DEST/$PREFIX$file"
 
+        if [[ $file = "README.md" || $file = "README" ]]; then
+            log $CLR_BLUE "--> [$file] is a readme; skipping"
+            continue
+        fi 
+
         if [[ -e "$SLINK" && `readlink "$SLINK"` == "$repo/$file" ]]; then
             log $CLR_CYAN "--> [$file] already symlinked"
             continue
